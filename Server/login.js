@@ -1,8 +1,7 @@
 
 
-function Validar(request) {
-    let user = request['usuario'];
-    let password = request['password'];
+function Validar(user, password) {
+    console.log("Usuario " + user + " Password " + password);
 
     return true;
 
