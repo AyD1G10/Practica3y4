@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { UserInterface } from 'src/app/models/user-inteface';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,39 +12,33 @@ export class LoginComponent implements OnInit {
   public email: string = "";
   public password: string="";
 
-  constructor(public auth: UserService) { }
+  constructor(public auth: UserService,public router: Router) { }
 
   ngOnInit(): void {
   }
 
   login() {
-    let userLogged;
+
     if (this.email===""||this.password===""){
-      //alert("Debe llenar todos los campos");
-      userLogged = 'Llenar todos los campos';
-      this.email="";
-      this.password="";
-      return userLogged;
+      alert("Debe llenar todos los campos");
     }else{
       this.auth.Login(this.email,this.password).subscribe((res) => {
-        if (res) {
-          alert("TRUE");
-          userLogged = 'login_valid';
-          this.email="";
-          this.password="";
+        console.log(res);
+        if (res['respuesta']) {
+          let DataUser: UserInterface = res['DataUser'];
+          this.auth.setCurrentUser(DataUser);
+          this.router.navigate(['/']);
+  
         } else {
-          alert("FALSE");
-           userLogged = 'login_invalid';
-           this.email="";
-           this.password="";
+           alert("Usuario o Contrasena incorrectas");
         }
       })
       this.email="";
       this.password="";
-      return userLogged;
     }
     
   }
+
 
   registrarse(){
    

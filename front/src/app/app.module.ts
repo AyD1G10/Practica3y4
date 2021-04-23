@@ -7,11 +7,13 @@ import { LoginComponent } from './components/login/login.component';
 
 import { FormsModule } from '@angular/forms';
 import {  HttpClientModule  } from '@angular/common/http';
+import { AlquilerPeliculasComponent } from './components/alquiler-peliculas/alquiler-peliculas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    AlquilerPeliculasComponent
   ],
   imports: [
     BrowserModule,

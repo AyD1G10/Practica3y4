@@ -25,20 +25,42 @@ app.post('/Login', function (request, response) {
     return response.send(
       JSON.stringify({
         respuesta: true,
-        mensaje: "",
-        id: 1,
-        nombre: "nombre",
-        apellido: "apellido"
+        mensaje:"",
+        DataUser:[
+        {
+          id:1,
+          usuario: "TTGay",
+          correo:"ejemplo@ejemplo.com",
+          contrasena: "123",
+          nombres: "Osmel David",
+          apellidos: "TortolaTistok",
+          dpi: 12435,
+          edad: 40,
+          inventario: 3,
+          transacciones: 4
+        }
+      ],
       })
     );
   } else {
     return response.send(
       JSON.stringify({
         respuesta: false,
-        mensaje: "Usuario no existe",
-        id: -1,
-        nombre: "",
-        apellido: ""
+        mensaje:"",
+        DataUser:[
+        {
+        id:1,
+        usuario: "TTGay",
+        correo:"ejemplo@ejemplo.com",
+        contrasena: "123",
+        nombres: "Osmel David",
+        apellidos: "TortolaTistok",
+        dpi: 12435,
+        edad: 40,
+        inventario: 3,
+        transacciones: 4
+        }
+      ],
       })
     );
   }
