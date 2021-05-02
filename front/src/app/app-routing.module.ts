@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from  "./components/login/login.component";
 import { AlquilerPeliculasComponent } from './components/alquiler-peliculas/alquiler-peliculas.component';
+import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
 import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
@@ -15,7 +16,12 @@ const routes: Routes = [
     component:AlquilerPeliculasComponent,
     canActivate:[AuthGuard]
 
-  }
+  },
+  {
+    path: 'RegistrarUsuario',
+    component:RegistrarUsuarioComponent
+   
+  },
 
 ];
 
