@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
+import { DatePipe } from '@angular/common'
 import { UserInterface } from '../models/user-inteface';
 import { Router } from "@angular/router";
 
@@ -9,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private datePipe: DatePipe, private router: Router) { 
 
   }
 
@@ -27,6 +28,27 @@ export class UserService {
       }
       , { headers: this.headers })
       .pipe(map(data => data));
+  }
+
+  registarUsuario(nombre: string,apellido: string, usuario:string , dpi:string , contrasena: string,correo:string,fecha_nacimiento: Date) {
+
+    const url = "http://localhost:3000/RegistarUsuario"
+    return this.http.post<any>(
+      url,
+      {
+        
+        "nombre": nombre,
+        "apellido": apellido,
+        "usuario":usuario,
+        "dpi":dpi,
+        "email":correo,
+        "password":contrasena,
+        "fecha_nacimiento":this.datePipe.transform(fecha_nacimiento, 'yyyy/MM/dd'),
+    
+      },
+      { headers: this.headers }
+    ).pipe(map(data => data));
+
   }
 
   setCurrentUser(user: UserInterface) {
