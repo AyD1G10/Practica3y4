@@ -21,13 +21,15 @@ import { MatInputModule} from '@angular/material/input';
 import { DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
+import { HistorialComponent } from './components/historial/historial.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AlquilerPeliculasComponent,
     RegistrarUsuarioComponent,
-    CatalogoComponent
+    CatalogoComponent,
+    HistorialComponent
   ],
   imports: [
     BrowserModule,

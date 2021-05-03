@@ -149,7 +149,7 @@ app.post('/catalogo', function (request, response) {
   )
 })
 
-app.get('/record',async (req,res) => {
+app.post('/record',async (req,res) => {
   const userId = req.body.userId;
   const usuario = await Usuarios.find({_id:userId});
   const transacciones = await Transacciones.find({});

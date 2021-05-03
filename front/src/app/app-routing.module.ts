@@ -4,6 +4,7 @@ import { LoginComponent } from  "./components/login/login.component";
 import { AlquilerPeliculasComponent } from './components/alquiler-peliculas/alquiler-peliculas.component';
 import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
 import { CatalogoComponent } from './components/catalogo/catalogo.component'
+import {HistorialComponent} from './components/historial/historial.component'
 import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'Catalogo',
     component:CatalogoComponent
+   
+  },
+  {
+    path: 'historial',
+    component:HistorialComponent
    
   },
 
