@@ -20,12 +20,14 @@ import { CommonModule } from "@angular/common";
 import { MatInputModule} from '@angular/material/input';
 import { DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CatalogoComponent } from './components/catalogo/catalogo.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AlquilerPeliculasComponent,
-    RegistrarUsuarioComponent
+    RegistrarUsuarioComponent,
+    CatalogoComponent
   ],
   imports: [
     BrowserModule,

@@ -70,5 +70,17 @@ export class UserService {
     localStorage.removeItem("UsuarioLogueado");
     this.router.navigate(['/login']);
   }
+
+  getCatalogo() {
+
+    const url = "http://localhost:3000/catalogo";
+
+    return this.http.post<any>(url,
+      {
+        
+      }
+      , { headers: this.headers })
+      .pipe(map(data => data));
+  }
 }
 
