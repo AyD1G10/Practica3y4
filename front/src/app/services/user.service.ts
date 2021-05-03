@@ -82,5 +82,21 @@ export class UserService {
       , { headers: this.headers })
       .pipe(map(data => data));
   }
+
+  getHistorial() {
+    const url = "http://localhost:3000/record"
+    const userId = localStorage.getItem('userId') || "608f3a56229dcb1684a79766";
+    
+    /*const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      }),
+      body:{userId:userId}
+    };*/
+
+    return this.http.post<any>(url,{userId:userId})
+      .pipe(map(data => {console.log(data); return data}));
+
+  }
 }
 
