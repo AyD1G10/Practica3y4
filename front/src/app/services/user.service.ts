@@ -98,5 +98,14 @@ export class UserService {
       .pipe(map(data => {console.log(data); return data}));
 
   }
+
+  getHistorialAdmin() {
+    const url = "http://localhost:3000/adminRecord"
+    const userId = localStorage.getItem('UsuarioLogueado') || "608f3a56229dcb1684a79766";
+    
+    return this.http.post<any>(url,{userId:userId})
+      .pipe(map(data => {console.log(data); return data}));
+
+  }
 }
 

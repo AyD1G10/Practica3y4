@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { HistorialAdminComponent } from './components/historial-admin/historial-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { HistorialComponent } from './components/historial/historial.component';
     AlquilerPeliculasComponent,
     RegistrarUsuarioComponent,
     CatalogoComponent,
-    HistorialComponent
+    HistorialComponent,
+    HistorialAdminComponent
   ],
   imports: [
     BrowserModule,
