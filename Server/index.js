@@ -237,6 +237,69 @@ app.post('/record', async (req, res) => {
   res.json({ result: MovieList })
 })
 
+app.post('/adminRecord',async (req,res) => {
+  const userId = req.body.userId;
+  const usuario = await Usuarios.find({ _id: userId });
+  const usuarios = await Usuarios.find({});
+  
+  if(usuario) {
+    if(Array.isArray(usuario)) {
+      if(usuario.length > 0) {
+        if(usuario[0].type == 1) {
+          //####AQUI SE COLOCA
+        }
+      }
+    }
+  }
+
+  //####ESTO SE COLOCA ADENTRO DEL IF
+  const transacciones = await Transacciones.find({});
+  if(transacciones.length > 0) {
+
+    let Records = [];
+    const getMovie = async function () {
+      for (let i = 0; i < transacciones.length; i++) {
+        
+        let transactionId = transacciones[i]._id;
+        
+        let userObj = usuarios.filter(element => {
+          let arrayHistory = element.History
+          if(arrayHistory.length > 0) {
+            for (const iterator of arrayHistory) {
+              if(String(iterator) == String(transactionId)) {
+                return element;
+              }
+            }
+          }
+        })
+
+        let movieId = transacciones[i].movieid;
+        let result = await Catalogo.find({ _id: String(movieId) })
+
+        let transactionElement = transacciones[i];
+        let transac = { transactionElement };
+  
+        transac.movie = result[0];
+        transac.user = userObj;
+  
+        let planid = transacciones[i].plan;
+        let resultPlan = await Availability.find({ _id: String(planid) })
+        transac.plan = resultPlan[0]
+  
+        Records.push(transac)
+      }
+
+    }
+
+    await getMovie();
+    res.json({ result: Records });
+  } else {
+      res.json({ result: [] });
+  }
+
+  //
+})
+
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`)
 })
