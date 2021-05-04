@@ -6,7 +6,7 @@ import { RegistrarUsuarioComponent } from './components/registrar-usuario/regist
 import { CatalogoComponent } from './components/catalogo/catalogo.component'
 import {HistorialComponent} from './components/historial/historial.component'
 import { AuthGuard } from "./guards/auth.guard";
-
+import {HistorialAdminComponent} from "./components/historial-admin/historial-admin.component"
 const routes: Routes = [
   {
     path: 'login',
@@ -34,7 +34,10 @@ const routes: Routes = [
     component:HistorialComponent
    
   },
-
+  {
+    path:'historialAdmin',
+    component:HistorialAdminComponent
+  },
 ];
 
 @NgModule({

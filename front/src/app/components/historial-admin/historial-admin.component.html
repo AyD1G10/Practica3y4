@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="https://cdn.svgporn.com/logos/gusto.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        BlockBusted
+      </a>
+      <button type="button"  class="btn btn-dark">Producto</button>
+      <button type="button"  class="btn btn-dark">Perfil</button>
+      <button type="button" (click)="cerrarSesion()" class="btn btn-dark">Cerrar Sesion</button>     
+      <button type="button"  class="btn btn-dark">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+      </button>     
+    </nav>
+
+<div class="container">
+    <br>
+    <h1><strong>Historial</strong></h1>
+    <div  *ngFor="let item of resultados.result">
+        <h2>{{item.movie.name}}</h2>
+        <img [src]="item.movie.image" [alt]="item.movie.name" width="100">
+        <p><strong>Plan:</strong> {{item.plan.name}}</p>
+        <p><strong>Nombre:</strong> {{item.user[0].name }} {{item.user[0].lastname}}</p>
+        <p><strong>Usuario:</strong> {{item.user[0].username}}</p>
+        <p><strong>Fecha:</strong> {{item.transactionElement.date}}</p>
+        <p><strong>Total:</strong> Q.{{item.transactionElement.total}}</p>
+    </div>
+</div>
+
+
