@@ -12,10 +12,13 @@ const Usuarios = require('./models/Usuarios');
 const Catalogo = require('./models/Catalogo');
 const Availability = require('./models/Availability');
 
+const Usuario = require('./models/Usuarios');
+
+
 const mongodbURL = "mongodb+srv://adminsopes1p1:adminsopes1p1@cluster0.c9orq.mongodb.net/Blockbusted?retryWrites=true&w=majority";
-mongoose.connect(mongodbURL, {useNewUrlParser: true, useUnifiedTopology: true})
-	.then(db => console.log('DB is conencted to', db.connection.host))
-	.catch(err => {console.log("###################ESTE SERIA EL ERROR#######################"); console.error(err);});
+mongoose.connect(mongodbURL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(db => console.log('DB is conencted to', db.connection.host))
+  .catch(err => { console.log("###################ESTE SERIA EL ERROR#######################"); console.error(err); });
 
 app.use(cors());
 
@@ -30,50 +33,90 @@ app.post('/Login', function (request, response) {
   }
   console.log(request.body);
 
-  if (login.Validar(request.body['usuario'], request.body['password'])) {
-    return response.send(
-      JSON.stringify({
-        respuesta: true,
-        mensaje: "",
-        DataUser: [
-          {
-            id: 1,
-            usuario: "TTGay",
-            correo: "ejemplo@ejemplo.com",
-            contrasena: "123",
-            nombres: "Osmel David",
-            apellidos: "TortolaTistok",
-            dpi: 12435,
-            edad: 40,
-            inventario: 3,
-            transacciones: 4
-          }
-        ],
-      })
-    );
-  } else {
-    return response.send(
-      JSON.stringify({
-        respuesta: false,
-        mensaje: "",
-        DataUser: [
-          {
-            id: 1,
-            usuario: "TTGay",
-            correo: "ejemplo@ejemplo.com",
-            contrasena: "123",
-            nombres: "Osmel David",
-            apellidos: "TortolaTistok",
-            dpi: 12435,
-            edad: 40,
-            inventario: 3,
-            transacciones: 4
-          }
-        ],
-      })
-    );
+
+  Usuario.find({ username: request.body['usuario'], password: request.body['password'] })
+    .exec()
+    .then(doc => {
+      console.log(doc);
+      response.status(200).json(doc);
+    })
+    .catch(err => {
+      console.log(err);
+      response.status(500).json({ error: err });
+    });
+});
+
+
+
+
+app.post('/SignUp', function (request, response) {
+  if (!request || !response) {
+    response.send(JSON.stringify({ msg: false }));
   }
-})
+  console.log(request.body);
+
+  const usuario = new Usuario({
+    _id: new mongoose.Types.ObjectId(),
+    name: request.body['name'],
+    lastname:request.body['lastname'],
+    username:request.body['username'],
+    email:request.body['email'],
+    password:request.body['password'],
+    dpi:request.body['dpi'],
+    age:request.body['age'],
+    creditCard:request.body['creditCard'],
+    type:request.body['type']
+  });
+
+  usuario.save()
+    .then(result => {
+      console.log(result);
+      response.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      response.status(500).json({ error: err });
+    });
+
+});
+
+app.get('/detallesPelicula', function (request, response) {
+  if (!request || !response) {
+    response.send(JSON.stringify({ msg: false }));
+  }
+  console.log(request.body);
+
+  Catalogo.find({ _id: request.body['id'] })
+    .exec()
+    .then(doc => {
+      console.log(doc);
+      response.status(200).json(doc);
+    })
+    .catch(err => {
+      console.log(err);
+      response.status(500).json({ error: err });
+    });
+
+});
+
+
+app.get('/test', function (request, response) {
+  console.log(request.body);
+
+  Catalogo.find()
+    .exec()
+    .then(doc => {
+      console.log(doc);
+      response.status(200).json(doc);
+    })
+    .catch(err => {
+      console.log(err);
+      response.status(500).json({ error: err });
+    });
+
+});
+
+
 
 app.post('/catalogo', function (request, response) {
   return response.send(
@@ -149,49 +192,49 @@ app.post('/catalogo', function (request, response) {
   )
 })
 
-app.post('/record',async (req,res) => {
+app.post('/record', async (req, res) => {
   const userId = req.body.userId;
-  const usuario = await Usuarios.find({_id:userId});
+  const usuario = await Usuarios.find({ _id: userId });
   const transacciones = await Transacciones.find({});
 
   //console.log(transacciones)
 
   const userHistory = usuario[0].History;
   transactionList = [];
-  const filterHistory = async function() {
-    for(let i=0;i<userHistory.length;i++) {
+  const filterHistory = async function () {
+    for (let i = 0; i < userHistory.length; i++) {
       let transactionId = userHistory[i];
-      let result = await Transacciones.find({_id:String(transactionId)})
+      let result = await Transacciones.find({ _id: String(transactionId) })
       transactionList.push(result[0])
     }
-    
+
   }
   await filterHistory();
 
   let MovieList = []
-  const getMovie = async function() {
-    for(let i=0;i<transactionList.length;i++) {
+  const getMovie = async function () {
+    for (let i = 0; i < transactionList.length; i++) {
 
       let movieId = transactionList[i].movieid;
-      let result = await Catalogo.find({_id:String(movieId)})
+      let result = await Catalogo.find({ _id: String(movieId) })
       let transactionElement = transactionList[i];
-      let transac = {transactionElement};
-      
+      let transac = { transactionElement };
+
       transac.movie = result[0];
-     
+
       let planid = transactionList[i].plan;
-      let resultPlan = await Availability.find({_id:String(planid)})
+      let resultPlan = await Availability.find({ _id: String(planid) })
       transac.plan = resultPlan[0]
 
       MovieList.push(transac)
     }
-    
+
   }
   await getMovie();
-  
-  
 
-  res.json({result:MovieList})
+
+
+  res.json({ result: MovieList })
 })
 
 app.listen(port, () => {
