@@ -121,6 +121,19 @@ export class UserService {
       { headers: this.headers }
     ).pipe(map(data => data));
   }
+
+  getCatalogoAdmin() {
+
+    const url = "http://localhost:3000/catalogoadmin";
+
+    return this.http.post<any>(url,
+      {
+        
+      }
+      , { headers: this.headers })
+      .pipe(map(data => data));
+  }
+
   //---------------- ALQUILER DE PELICULAS --------------------
   alquiler_peliculas(){  
     var carrito = localStorage.getItem('carrito');
