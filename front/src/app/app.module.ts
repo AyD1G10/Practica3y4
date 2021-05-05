@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { HistorialAdminComponent } from './components/historial-admin/historial-admin.component';
+import { DetallePeliculaComponent } from './components/detalle-pelicula/detalle-pelicula.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { HistorialAdminComponent } from './components/historial-admin/historial-
     RegistrarUsuarioComponent,
     CatalogoComponent,
     HistorialComponent,
-    HistorialAdminComponent
+    HistorialAdminComponent,
+    DetallePeliculaComponent
   ],
   imports: [
     BrowserModule,

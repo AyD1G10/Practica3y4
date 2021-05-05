@@ -20,6 +20,9 @@ export class CatalogoComponent implements OnInit {
   cerrarSesion() {
     this.auth.logout();
   }
+  gotoDetalles(id:number){
+    this.router.navigate(['/detalleProducto',id]);
+  }
   getCatalogo() {
       this.auth.getCatalogo().subscribe((res) => {
        

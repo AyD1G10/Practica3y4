@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
       alert("Debe llenar todos los campos");
     }else{
       this.auth.Login(this.email,this.password).subscribe((res) => {
-        console.log(res);
-        if (res['respuesta']) {
-          let DataUser: UserInterface = res['DataUser'];
+        console.log(res)
+        if(res[0]===undefined){
+          alert("Usuario o Contrasena incorrectas");
+        }else{
+          let DataUser: UserInterface = res[0];
           this.auth.setCurrentUser(DataUser);
           this.router.navigate(['/']);
-  
-        } else {
-           alert("Usuario o Contrasena incorrectas");
         }
+        
       })
       this.email="";
       this.password="";

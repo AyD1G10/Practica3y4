@@ -21,6 +21,9 @@ export class RegistrarUsuarioComponent implements OnInit {
   dpi: string="";
   confirmarPassword: string="";
   email: string="";
+  edad: string="";
+  creditCard : string = "";
+  type: string = "";
   date: Date = new Date();
   Usuarios: UserInterface[] = [];
 
@@ -28,15 +31,17 @@ export class RegistrarUsuarioComponent implements OnInit {
     
   }
   registrarse(){
-    if(this.nombre==="" || this.apellido===""|| this.password==="" ||this.confirmarPassword ===""||this.email===""||this.usuario===""||this.dpi===""){
+    if(this.nombre==="" || this.apellido===""|| this.password==="" ||this.confirmarPassword ===""||this.email===""||this.usuario===""||this.dpi===""||this.edad===""||this.creditCard===""){
       alert("Debe llenar todos los campos");
    }else if (this.password!=this.confirmarPassword) {
       alert("La contrasena no coincide con la confirmacion");
    }else{
 
-    this.crudService.registarUsuario(this.nombre,this.apellido,this.usuario,this.dpi,this.password,this.email,this.date).subscribe((res) => {
+    this.crudService.registarUsuario(this.nombre,this.apellido,this.usuario,this.dpi,this.password,this.email,this.edad,this.creditCard,"1").subscribe((res) => {
       console.log(res);
-      if (res['respuesta']) {
+      if (res['_id']===undefined) {
+        alert("Usuario o correo ya utilizados.");
+      } else {
         alert("Usuario registrado con exito");
         this.nombre ="";
         this.apellido ="";
@@ -45,9 +50,10 @@ export class RegistrarUsuarioComponent implements OnInit {
         this.password = "";
         this.confirmarPassword="";
         this.email = "";
+        this.edad = "";
+        this.creditCard="";
         this.date = new Date();
-      } else {
-         alert(res["mensaje"]);
+         
       }
     })
    }

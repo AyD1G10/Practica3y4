@@ -82,7 +82,7 @@ app.post('/SignUp', function (request, response) {
 
 });
 
-app.get('/detallesPelicula', function (request, response) {
+app.post('/detallesPelicula', function (request, response) {
   if (!request || !response) {
     response.send(JSON.stringify({ msg: false }));
   }
