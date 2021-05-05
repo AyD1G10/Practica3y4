@@ -8,6 +8,8 @@ import {HistorialComponent} from './components/historial/historial.component'
 import { AuthGuard } from "./guards/auth.guard";
 import {HistorialAdminComponent} from "./components/historial-admin/historial-admin.component"
 import { DetallePeliculaComponent } from './components/detalle-pelicula/detalle-pelicula.component';
+import { CatalogoAdminComponent } from './components/catalogo-admin/catalogo-admin.component'
+
 const routes: Routes = [
   {
     path: 'login',
@@ -27,7 +29,7 @@ const routes: Routes = [
    
   },
   {
-    path: 'catalogo',
+    path: 'Catalogo',
     component:CatalogoComponent
    
   },
@@ -43,6 +45,10 @@ const routes: Routes = [
   {
     path: 'detalleProducto/:id',
     component:DetallePeliculaComponent,
+  },
+  {
+    path: 'catalogoAdmin',
+    component:CatalogoAdminComponent
   }
 ];
 

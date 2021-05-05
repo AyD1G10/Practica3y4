@@ -24,6 +24,7 @@ import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { HistorialAdminComponent } from './components/historial-admin/historial-admin.component';
 import { DetallePeliculaComponent } from './components/detalle-pelicula/detalle-pelicula.component';
+import { CatalogoAdminComponent } from './components/catalogo-admin/catalogo-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { DetallePeliculaComponent } from './components/detalle-pelicula/detalle-
     CatalogoComponent,
     HistorialComponent,
     HistorialAdminComponent,
-    DetallePeliculaComponent
+    DetallePeliculaComponent,
+    CatalogoAdminComponent
   ],
   imports: [
     BrowserModule,

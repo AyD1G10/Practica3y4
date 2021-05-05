@@ -39,7 +39,7 @@ app.post('/Login', function (request, response) {
   Usuario.find({ username: request.body['usuario'], password: request.body['password'] })
     .exec()
     .then(doc => {
-      console.log(doc);
+      console.log("-> "+doc);
       response.status(200).json(doc);
     })
     .catch(err => {
@@ -124,6 +124,19 @@ app.post('/catalogo', async (request, response) => {
     let json_response = await obtenerCatalogo.getCatalogo();
   //console.log(json_response);
     response.json(json_response);
+})
+
+app.post('/catalogoadmin', async (request, response) => {
+  let json_response = await obtenerCatalogo.getCatalogoAdmin();
+//console.log(json_response);
+  response.json(json_response);
+})
+
+app.post('/planes', async (request, response) => {
+  //console.log(request.body["availabilities"]);
+  let json_response = await obtenerCatalogo.getPlanes(request.body["availabilities"]);
+  //console.log(json_response);
+  response.json(json_response);
 })
 
 app.post('/record', async (req, res) => {

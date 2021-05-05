@@ -132,4 +132,7 @@ function getExchangeRate() {
 }
 
 //getLenguage();
-module.exports = { getExchangeRate , getLenguage , getApiAvialabity , getApiMovies} 
+//getApiMovies();
+//getApiAvialabity();
+//getExchangeRate();
+//module.exports = { getExchangeRate , getLenguage , getApiAvialabity , getApiMovies} 
