@@ -13,4 +13,32 @@
       </button>     
     </nav>
 
-<p>Hola soy el alquiler de peliculas!</p>
+    <div class="container">
+      <br>
+      <h1>Alquiler de peliculas</h1> 
+      <br>
+      <div id="tabla">
+        <table class="table" id= "tablacarrito">
+          
+            
+          
+        </table>
+      </div>
+      <br>
+
+      <form>
+        
+        <div class="form-group">
+          
+          <label for="exampleInputEmail1">Tarjeta</label>
+          <input type="email" class="form-control" id="exampleInputEmail1"  aria-describedby="emailHelp" placeholder="Ingresar No. Tarjeta">
+          <br>
+          <label for="plan">Elegir numero de plan</label>
+          <input type="text" class="form-control" id="plan"  placeholder="Ingresar No. Plan">
+
+            
+        </div>
+      </form> 
+      <a class="btn btn-primary button" (click)= "alquiler_pelicula()"><span>Confirmar</span></a>
+    </div>
+

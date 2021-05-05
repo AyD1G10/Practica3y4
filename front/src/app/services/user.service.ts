@@ -121,5 +121,16 @@ export class UserService {
       { headers: this.headers }
     ).pipe(map(data => data));
   }
+  //---------------- ALQUILER DE PELICULAS --------------------
+  alquiler_peliculas(){  
+    var carrito = localStorage.getItem('carrito');
+    if(carrito){
+      var obj = JSON.parse(carrito);
+      return obj;
+    }else{
+      return null;
+    } 
+  }
+
 }
 
