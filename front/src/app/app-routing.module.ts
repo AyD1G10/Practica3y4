@@ -7,6 +7,7 @@ import { CatalogoComponent } from './components/catalogo/catalogo.component'
 import {HistorialComponent} from './components/historial/historial.component'
 import { AuthGuard } from "./guards/auth.guard";
 import {HistorialAdminComponent} from "./components/historial-admin/historial-admin.component"
+import { DetallePeliculaComponent } from './components/detalle-pelicula/detalle-pelicula.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -19,13 +20,14 @@ const routes: Routes = [
     canActivate:[AuthGuard]
 
   },
+  
   {
     path: 'RegistrarUsuario',
     component:RegistrarUsuarioComponent
    
   },
   {
-    path: 'Catalogo',
+    path: 'catalogo',
     component:CatalogoComponent
    
   },
@@ -38,6 +40,10 @@ const routes: Routes = [
     path:'historialAdmin',
     component:HistorialAdminComponent
   },
+  {
+    path: 'detalleProducto/:id',
+    component:DetallePeliculaComponent,
+  }
 ];
 
 @NgModule({

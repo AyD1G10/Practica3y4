@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common'
 import { UserInterface } from '../models/user-inteface';
 import { Router } from "@angular/router";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,7 @@ export class UserService {
   })
 
   Login(email:string, password:string) {
-    const url = "http://localhost:3000/login";
+    const url = "http://localhost:3000/Login";
 
     return this.http.post<any>(url,
       {
@@ -30,21 +31,22 @@ export class UserService {
       .pipe(map(data => data));
   }
 
-  registarUsuario(nombre: string,apellido: string, usuario:string , dpi:string , contrasena: string,correo:string,fecha_nacimiento: Date) {
+  registarUsuario(nombre: string,apellido: string, usuario:string , dpi:string , contrasena: string,correo:string,age:string,creditCard:string,type:string) {
 
-    const url = "http://localhost:3000/RegistarUsuario"
+    const url = "http://localhost:3000/SignUp"
     return this.http.post<any>(
       url,
       {
         
-        "nombre": nombre,
-        "apellido": apellido,
-        "usuario":usuario,
+        "name": nombre,
+        "lastname": apellido,
+        "username":usuario,
         "dpi":dpi,
         "email":correo,
         "password":contrasena,
-        "fecha_nacimiento":this.datePipe.transform(fecha_nacimiento, 'yyyy/MM/dd'),
-    
+        "age":age,
+        "creditCard":creditCard,
+        "type":type
       },
       { headers: this.headers }
     ).pipe(map(data => data));
@@ -106,6 +108,18 @@ export class UserService {
     return this.http.post<any>(url,{userId:userId})
       .pipe(map(data => {console.log(data); return data}));
 
+  }
+
+  getDetallesPelicula(id:string){
+    const url = "http://localhost:3000/detallesPelicula"
+    return this.http.post<any>(
+      url,
+      {
+        "id": id,
+        
+      },
+      { headers: this.headers }
+    ).pipe(map(data => data));
   }
 }
 
