@@ -70,5 +70,17 @@ export class UserService {
     localStorage.removeItem("UsuarioLogueado");
     this.router.navigate(['/login']);
   }
+
+  //---------------- ALQUILER DE PELICULAS --------------------
+  alquiler_peliculas(){  
+    var carrito = localStorage.getItem('carrito');
+    if(carrito){
+      var obj = JSON.parse(carrito);
+      return obj;
+    }else{
+      return null;
+    } 
+  }
+
 }
 
