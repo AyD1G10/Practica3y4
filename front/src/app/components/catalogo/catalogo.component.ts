@@ -27,4 +27,8 @@ export class CatalogoComponent implements OnInit {
          console.log(this.resultados);
       })
     }
+
+  agregarCarrito(){
+    alert("se agrego al carrito");
+  }
 }
