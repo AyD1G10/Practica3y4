@@ -17,7 +17,7 @@ const routes: Routes = [
    
   },
   {
-    path: '',
+    path: 'pagoalquiler',
     component:AlquilerPeliculasComponent,
     canActivate:[AuthGuard]
 

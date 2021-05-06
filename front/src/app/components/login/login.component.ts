@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         }else{
           let DataUser: UserInterface = res[0];
           this.auth.setCurrentUser(DataUser);
-          this.router.navigate(['/']);
+          this.router.navigate(['/Catalogo']);
         }
         
       })

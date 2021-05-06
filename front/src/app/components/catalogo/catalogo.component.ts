@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
 export class CatalogoComponent implements OnInit {
 
   resultados: any;
+  arreglo_carrito : Array<any> = new Array<any>();
+  arreglo_pago : Array<any> = new Array<any>();
 
   constructor(public auth: UserService,public router: Router) { }
 
@@ -31,7 +33,30 @@ export class CatalogoComponent implements OnInit {
       })
     }
 
-  agregarCarrito(){
-    alert("se agrego al carrito");
-  }
+    agregarCarrito(item:any){
+      //alert("se agrego al carrito");
+      this.arreglo_carrito.push(item);
+      //console.log(item);
+  
+      this.auth.getPlanesPelicula(item.availabilities).subscribe((res)=>{
+        
+        let json_pelicula = {
+          "id" : item._id,
+          "name" : item.name,
+          "chargeRate" : item.changerate,
+          "availabilities" : res,
+          "languages" : item.languages
+        }
+        this.arreglo_pago.push(json_pelicula);
+        console.log(this.arreglo_pago);
+      })
+  
+    }
+  
+    realizarpagoAlquiler(){
+      console.log(JSON.stringify(this.arreglo_pago));
+      localStorage.setItem('carrito', JSON.stringify(this.arreglo_pago));
+      
+      this.router.navigate(['/pagoalquiler']);
+    }
 }

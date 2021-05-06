@@ -48,7 +48,31 @@ app.post('/Login', function (request, response) {
     });
 });
 
+app.post('/transaccion', async (request, response) => {
+  console.log(request.body); 
 
+  const transa = new Transacciones({
+    _id: new mongoose.Types.ObjectId(),
+    user: request.body['user'],
+    key: request.body['key'], 
+    movieid : request.body['movieid'],
+    plan : request.body['plan'], 
+    exchangeRate :  7,
+    total : request.body['total'],
+    date : new Date()
+
+  })
+  transa.save()
+  .then(result => {
+    console.log(result);
+    response.status(200).json(result);
+  })
+  .catch(err => {
+    console.log(err);
+    response.status(500).json({ error: err });
+  });
+
+})
 
 
 app.post('/SignUp', function (request, response) {
@@ -139,6 +163,8 @@ app.post('/planes', async (request, response) => {
   response.json(json_response);
 })
 
+
+ 
 app.post('/record', async (req, res) => {
   const userId = req.body.userId;
   const usuario = await Usuarios.find({ _id: userId });

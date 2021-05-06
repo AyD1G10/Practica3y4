@@ -134,6 +134,18 @@ export class UserService {
       .pipe(map(data => data));
   }
 
+  getPlanesPelicula(availabilities:any){
+    const url = "http://localhost:3000/planes"
+    return this.http.post<any>(
+      url,
+      {
+        "availabilities" : availabilities,
+        
+      },
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
+
   //---------------- ALQUILER DE PELICULAS --------------------
   alquiler_peliculas(){  
     var carrito = localStorage.getItem('carrito');
@@ -145,5 +157,20 @@ export class UserService {
     } 
   }
 
+  realizar_pago(user: number, key: string, movieid : Array<any>, plan : Array<any>, exchangeRate: Array<any>, total:number ){
+    const url = "http://localhost:3000/transaccion"
+    return this.http.post<any>(
+      url,
+      {
+        "user": user,
+        "key": key, 
+        "movieid" : movieid,
+        "plan" : plan, 
+        "exchangeRate" :  exchangeRate,
+        "total" : total,
+      },
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
 }
 
