@@ -152,6 +152,7 @@ app.post('/getTasa', async (request, response) => {
 })
 
 app.post('/catalogo', async (request, response) => {
+    await consumirApi.updateMovies();
     let json_response = await obtenerCatalogo.getCatalogo();
   //console.log(json_response);
     response.json(json_response);
