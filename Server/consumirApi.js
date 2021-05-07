@@ -106,28 +106,30 @@ function getLenguage() {
     });
 }
 
-function getExchangeRate() {
+const getExchangeRate = async function ()  {
+    
+    const tasadeCambio = await ExchangeRate.find();
 
-    Request.get("https://my-json-server.typicode.com/CoffeePaw/AyD1API/ExchangeRate", (error, response, body) => {
+    var dato_api;
+    Request.get("https://my-json-server.typicode.com/CoffeePaw/AyD1API/ExchangeRate", async (error, response, body) => {
         if (error) {
             return console.dir(error);
         }
         var json = JSON.parse(body);
+
         for (let dato of json) {
-
-            const exchange = new ExchangeRate({
-                _id: new mongoose.Types.ObjectId(),
-                total: dato.total
-            });
-
-            exchange.save()
-            .then(result => {
-                console.log(result);
-            })
-            .catch(err => console.log(err)); 
+            dato_api = dato.total;
+            mongoose.set('useFindAndModify', false);
+            await  ExchangeRate.findOneAndUpdate(
+                {
+                    _id: tasadeCambio[0]._id
+                },
+                {
+                    total: dato_api
+                }
+            );
         }
-
-        
+        //console.log(dato_api);
     });
 }
 
@@ -135,4 +137,4 @@ function getExchangeRate() {
 //getApiMovies();
 //getApiAvialabity();
 //getExchangeRate();
-//module.exports = { getExchangeRate , getLenguage , getApiAvialabity , getApiMovies} 
+module.exports = { getExchangeRate , getLenguage , getApiAvialabity , getApiMovies , getExchangeRate} 
