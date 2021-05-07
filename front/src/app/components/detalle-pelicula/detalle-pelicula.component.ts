@@ -47,4 +47,16 @@ export class DetallePeliculaComponent implements OnInit {
     this.router.navigate([' ']);
   }
   
+  catalogo(){
+    this.router.navigate(['/Catalogo']);
+  }
+
+  historial(){
+    this.router.navigate(['/historial']);
+  }
+
+  alquilar(){
+    this.router.navigate(['/pagoalquiler']);
+    
+  }
 }

@@ -19,15 +19,42 @@ export class AlquilerPeliculasComponent implements OnInit {
    arrE : Array<any> = new Array<any>();
   selected = "----"
   repetidos : Array<any> = new Array<any>();
+  bandera : boolean = false;
+  tasa1 : number  = 1;
 
   update(e:any, item:any){
     this.selected = e.target.value
     console.log(this.selected);
     console.log(item);
     this.total += item.chargeRate * Number(this.selected);
-    this.arrE.push(item.chargeRate),
-    this.arrP.push(this.selected);
+    this.arrE.push(item.chargeRate);
+    for(let it of item.availabilities){
+      if(this.selected == it.serviceDays){
+        this.arrP.push(it.id);
+      }
+    }
+    
   }
+
+  tasa(e:any){
+    this.selected = e.target.value
+    console.log(this.selected);
+    if(this.selected == 'dollar'){
+      this.userService.getTasa().subscribe((res)=>{
+        console.log("dollar");
+        console.log(res);
+        this.total = this.total * res.total;
+        this.bandera = true;
+        this.tasa1 = res.total;
+      })
+    }else{
+      if(this.bandera == true){
+        this.bandera = false;
+        this.total = this.total / this.tasa1;
+      }
+    }
+  }
+
   resetear(){
     this.total = 0;
     this.repetidos = [];
@@ -35,6 +62,20 @@ export class AlquilerPeliculasComponent implements OnInit {
   cerrarSesion() {
     this.userService.logout();
   }
+
+  catalogo(){
+    this.router.navigate(['/Catalogo']);
+  }
+
+  historial(){
+    this.router.navigate(['/historial']);
+  }
+
+  alquilar(){
+    this.router.navigate(['/pagoalquiler']);
+    
+  }
+
   ngOnInit(): void {
     var user_string = {
       "carrito": [
@@ -75,7 +116,7 @@ export class AlquilerPeliculasComponent implements OnInit {
   }
 
   cancelar(){
-    this.router.navigate(['/catologo']);
+    this.router.navigate(['/Catalogo']);
   }
 
   transaccion(){
@@ -88,10 +129,12 @@ export class AlquilerPeliculasComponent implements OnInit {
       
     }
 
-    this.userService.realizar_pago(this.usuario._id, llave, arrM, this.arrP, this.arrE, this.total)
+    this.userService.realizar_pago(this.usuario._id, llave, arrM, this.arrP, this.tasa1, this.total, this.tarjeta)
     .subscribe((res)=>{
       console.log(res);
       alert("Se realizo la transaccion correctamente.");
+     
+      localStorage.setItem('carrito', JSON.stringify({}));
     }
     )
     

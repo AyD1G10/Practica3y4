@@ -28,4 +28,16 @@ export class CatalogoAdminComponent implements OnInit {
   cerrarSesion() {
     this.auth.logout();
   }
+  catalogo(){
+    this.router.navigate(['/Catalogo']);
+  }
+
+  historial(){
+    this.router.navigate(['/historial']);
+  }
+
+  alquilar(){
+    this.router.navigate(['/pagoalquiler']);
+    
+  }
 }

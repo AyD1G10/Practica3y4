@@ -158,7 +158,7 @@ export class UserService {
     } 
   }
 
-  realizar_pago(user: number, key: string, movieid : Array<any>, plan : Array<any>, exchangeRate: Array<any>, total:number ){
+  realizar_pago(user: number, key: string, movieid : Array<any>, plan : Array<any>, exchangeRate: number, total:number, tarjeta : string ){
     const url = "http://localhost:3000/transaccion"
     return this.http.post<any>(
       url,
@@ -169,11 +169,22 @@ export class UserService {
         "plan" : plan, 
         "exchangeRate" :  exchangeRate,
         "total" : total,
+        "tarjeta" : tarjeta
       },
       { headers: this.headers }
     ).pipe(map(data => data));
   }
-  
+
+  getTasa(){
+    const url = "http://localhost:3000/getTasa"
+    return this.http.post<any>(
+      url,
+      { 
+        
+      },
+      { headers: this.headers }
+    ).pipe(map(data => data));
+  }
 
 }
 
