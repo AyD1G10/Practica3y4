@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
-import { DatePipe } from '@angular/common'
+
 import { UserInterface } from '../models/user-inteface';
 import { Router } from "@angular/router";
 
@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private datePipe: DatePipe, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router) { 
 
   }
 
@@ -144,6 +144,8 @@ export class UserService {
       return null;
     } 
   }
+
+  
 
 }
 

@@ -16,7 +16,7 @@
             
             <h2> Iniciar Sesion</h2>
            
-            <form>
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
                     <input  name="username"  [(ngModel)]="email" placeholder="Email" type="email" class="form-control"
@@ -27,7 +27,7 @@
                 </div>
                 
 
-                <button  type="submit" (click)="login()" class="btn btn-outline-primary btn-block">Iniciar Sesion</button>
+                <button  id="btnSubmit" type="submit" (click)="login()" class="btn btn-outline-primary btn-block">Iniciar Sesion</button>
                 <button  type="submit" (click)="registrarse()" class="btn btn-outline-success btn-block">Registrarse</button>
             </form>
         </div>

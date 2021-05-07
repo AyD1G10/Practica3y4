@@ -18,23 +18,30 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
+    let userLogged;
     if (this.email===""||this.password===""){
       alert("Debe llenar todos los campos");
+      return false;
     }else{
       this.auth.Login(this.email,this.password).subscribe((res) => {
         console.log(res)
         if(res[0]===undefined){
           alert("Usuario o Contrasena incorrectas");
+          userLogged = 'login_invalid';
+          return false;
         }else{
           let DataUser: UserInterface = res[0];
           this.auth.setCurrentUser(DataUser);
           this.router.navigate(['/']);
+          userLogged = 'login_valid';
+          return true;
         }
         
       })
       this.email="";
       this.password="";
+      userLogged = 'login_invalid';
+      return false;
     }
     
   }

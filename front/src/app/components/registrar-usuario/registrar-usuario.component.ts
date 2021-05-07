@@ -12,7 +12,7 @@ export class RegistrarUsuarioComponent implements OnInit {
   imgURL: any = "https://t4.ftcdn.net/jpg/01/19/32/93/240_F_119329387_sUTbUdeyhk0nuhNw5WaFvOyQFmxeppjX.jpg";
   public message: string ="";
 
-  constructor(public crudService: UserService,private http: HttpClient) { }
+  constructor(public crudService: UserService) { }
 
   nombre: string="";
   apellido: string ="";
@@ -33,14 +33,17 @@ export class RegistrarUsuarioComponent implements OnInit {
   registrarse(){
     if(this.nombre==="" || this.apellido===""|| this.password==="" ||this.confirmarPassword ===""||this.email===""||this.usuario===""||this.dpi===""||this.edad===""||this.creditCard===""){
       alert("Debe llenar todos los campos");
+      return false;
    }else if (this.password!=this.confirmarPassword) {
       alert("La contrasena no coincide con la confirmacion");
+      return false;
    }else{
 
     this.crudService.registarUsuario(this.nombre,this.apellido,this.usuario,this.dpi,this.password,this.email,this.edad,this.creditCard,"1").subscribe((res) => {
       console.log(res);
       if (res['_id']===undefined) {
         alert("Usuario o correo ya utilizados.");
+        return true;
       } else {
         alert("Usuario registrado con exito");
         this.nombre ="";
@@ -53,9 +56,10 @@ export class RegistrarUsuarioComponent implements OnInit {
         this.edad = "";
         this.creditCard="";
         this.date = new Date();
-         
+        return true;
       }
     })
+    return true;
    }
 
 
