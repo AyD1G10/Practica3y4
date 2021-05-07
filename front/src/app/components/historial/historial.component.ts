@@ -17,6 +17,7 @@ export class HistorialComponent implements OnInit {
   ngOnInit(): void {
     
     this.getHistorial();
+    
   }
 
   cerrarSesion() {

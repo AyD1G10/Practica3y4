@@ -167,12 +167,11 @@ app.post('/planes', async (request, response) => {
  
 app.post('/record', async (req, res) => {
   const userId = req.body.userId;
-  const usuario = await Usuarios.find({ _id: userId });
-  const transacciones = await Transacciones.find({});
+  const transactionList = await Transacciones.find({user:userId});
 
   //console.log(transacciones)
 
-  const userHistory = usuario[0].History;
+  /*const userHistory = usuario[0].History;
   transactionList = [];
   const filterHistory = async function () {
     for (let i = 0; i < userHistory.length; i++) {
@@ -181,23 +180,41 @@ app.post('/record', async (req, res) => {
       transactionList.push(result[0])
     }
 
-  }
-  await filterHistory();
+  }*/
+  //await filterHistory();
 
   let MovieList = []
   const getMovie = async function () {
     for (let i = 0; i < transactionList.length; i++) {
-
-      let movieId = transactionList[i].movieid;
-      let result = await Catalogo.find({ _id: String(movieId) })
+      
       let transactionElement = transactionList[i];
       let transac = { transactionElement };
 
-      transac.movie = result[0];
+     /* let movieId = transactionList[i].movieid;
+      let result = await Catalogo.find({ _id: String(movieId) })
+      transac.movie = result[0];*/
+
+      let movieId = transactionList[i].movieid;
+        let movieList = [];
+        for (const oneMovie of movieId) {
+          let result = await Catalogo.find({ _id: String(oneMovie) })
+          movieList.push(result[0]);
+        }
+        
+        transac.movie = movieList;
+
+      /*let planid = transactionList[i].plan;
+      let resultPlan = await Availability.find({ _id: String(planid) })
+      transac.plan = resultPlan[0]*/
 
       let planid = transactionList[i].plan;
-      let resultPlan = await Availability.find({ _id: String(planid) })
-      transac.plan = resultPlan[0]
+      let planList = [];
+      for (const onePlan of planid) {
+          let resultPlan = await Availability.find({ id: onePlan })
+          planList.push(resultPlan[0]);
+      }
+        
+      transac.plan = planList
 
       MovieList.push(transac)
     }
@@ -211,21 +228,9 @@ app.post('/record', async (req, res) => {
 })
 
 app.post('/adminRecord',async (req,res) => {
-  const userId = req.body.userId;
-  const usuario = await Usuarios.find({ _id: userId });
-  const usuarios = await Usuarios.find({});
+  //const userId = req.body.userId;
+  //const usuario = await Usuarios.find({ _id: userId });
   
-  if(usuario) {
-    if(Array.isArray(usuario)) {
-      if(usuario.length > 0) {
-        if(usuario[0].type == 1) {
-          //####AQUI SE COLOCA
-        }
-      }
-    }
-  }
-
-  //####ESTO SE COLOCA ADENTRO DEL IF
   const transacciones = await Transacciones.find({});
   if(transacciones.length > 0) {
 
@@ -234,8 +239,11 @@ app.post('/adminRecord',async (req,res) => {
       for (let i = 0; i < transacciones.length; i++) {
         
         let transactionId = transacciones[i]._id;
-        
-        let userObj = usuarios.filter(element => {
+        let userId = transacciones[i].user;
+
+        let userObj = await Usuario.find({_id: userId});
+
+        /*let userObj = usuarios.filter(element => {
           let arrayHistory = element.History
           if(arrayHistory.length > 0) {
             for (const iterator of arrayHistory) {
@@ -244,20 +252,31 @@ app.post('/adminRecord',async (req,res) => {
               }
             }
           }
-        })
-
-        let movieId = transacciones[i].movieid;
-        let result = await Catalogo.find({ _id: String(movieId) })
-
+        })*/
+        
         let transactionElement = transacciones[i];
         let transac = { transactionElement };
-  
-        transac.movie = result[0];
         transac.user = userObj;
+
+        let movieId = transacciones[i].movieid;
+        let movieList = [];
+        for (const oneMovie of movieId) {
+          let result = await Catalogo.find({ _id: String(oneMovie) })
+          movieList.push(result[0]);
+        }
+        
+        transac.movie = movieList;
+        
   
         let planid = transacciones[i].plan;
-        let resultPlan = await Availability.find({ _id: String(planid) })
-        transac.plan = resultPlan[0]
+        let planList = [];
+        //console.log(planid)
+        for (const onePlan of planid) {
+          let resultPlan = await Availability.find({ id: onePlan })
+          planList.push(resultPlan[0]);
+        }
+        
+        transac.plan = planList
   
         Records.push(transac)
       }

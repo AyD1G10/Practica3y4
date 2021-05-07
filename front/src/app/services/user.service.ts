@@ -87,8 +87,9 @@ export class UserService {
 
   getHistorial() {
     const url = "http://localhost:3000/record"
-    const userId = localStorage.getItem('userId') || "608f3a56229dcb1684a79766";
-    
+    //const userId = localStorage.getItem('userId') || "608f3a56229dcb1684a79766";
+    let userId = JSON.parse(localStorage.getItem('UsuarioLogueado')||'{}');
+    userId = userId._id;
     /*const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -103,9 +104,9 @@ export class UserService {
 
   getHistorialAdmin() {
     const url = "http://localhost:3000/adminRecord"
-    const userId = localStorage.getItem('UsuarioLogueado') || "608f3a56229dcb1684a79766";
     
-    return this.http.post<any>(url,{userId:userId})
+    
+    return this.http.post<any>(url,{})
       .pipe(map(data => {console.log(data); return data}));
 
   }
