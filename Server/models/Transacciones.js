@@ -8,7 +8,8 @@ const Schema = new mongoose.Schema({
     plan:[String],
     exchangeRate:Number,
     total:Number,
-    date:Date
+    date:Date,
+    tarjeta: String
 })
 
 module.exports = mongoose.model('Transacciones',Schema,'Transacciones');

@@ -17,11 +17,21 @@
     <br>
     <h1><strong>Historial</strong></h1>
     <div  *ngFor="let item of resultados.result">
-        <h2>{{item.movie.name}}</h2>
-        <img [src]="item.movie.image" [alt]="item.movie.name" width="100">
-        <p>{{item.plan.name}}</p>
-        <p>{{item.transactionElement.date}}</p>
+        <h2><strong>Transaccion</strong> {{item.transactionElement._id}}</h2>
+        <p><strong>Llave</strong> {{item.transactionElement.key}}</p>
+        <p><strong>Fecha</strong> {{item.transactionElement.date}}</p>
+        <p><strong>Tipo de Cambio</strong> {{item.transactionElement.exchangeRate}}</p>
+        <p><strong>Tarrjeta</strong> {{item.transactionElement.tarjeta}}</p>
         <p><strong>Total</strong> Q.{{item.transactionElement.total}}</p>
+        <div>
+            <h2><strong>Peliculas</strong></h2>
+            <div  *ngFor="let movieItem of item.movie;let i = index">
+                <img [src]="movieItem.image" [alt]="movieItem.name" width="100">
+                <p><strong>Nombre </strong>{{movieItem.name}}</p>
+                <p><strong>Plan</strong> {{item.plan[i].name}}</p>
+            </div>
+        </div>
+        
     </div>
 </div>
 

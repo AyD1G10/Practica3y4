@@ -16,15 +16,26 @@
 <div class="container">
     <br>
     <h1><strong>Historial</strong></h1>
-    <div  *ngFor="let item of resultados.result">
-        <h2>{{item.movie.name}}</h2>
-        <img [src]="item.movie.image" [alt]="item.movie.name" width="100">
-        <p><strong>Plan:</strong> {{item.plan.name}}</p>
+    <div  *ngFor="let item of resultados.result; let i=index">
+        <h2><strong>{{i+1}}.Transaccion</strong> {{item.transactionElement._id}}</h2>
         <p><strong>Nombre:</strong> {{item.user[0].name }} {{item.user[0].lastname}}</p>
         <p><strong>Usuario:</strong> {{item.user[0].username}}</p>
-        <p><strong>Fecha:</strong> {{item.transactionElement.date}}</p>
-        <p><strong>Total:</strong> Q.{{item.transactionElement.total}}</p>
+        <p><strong>Llave</strong> {{item.transactionElement.key}}</p>
+        <p><strong>Fecha</strong> {{item.transactionElement.date}}</p>
+        <p><strong>Tipo de Cambio</strong> {{item.transactionElement.exchangeRate}}</p>
+        <p><strong>Tarrjeta</strong> {{item.transactionElement.tarjeta}}</p>
+        <p><strong>Total</strong> Q.{{item.transactionElement.total}}</p>
+        <div>
+            <h2><strong>Peliculas</strong></h2>
+            <div  *ngFor="let movieItem of item.movie;let i = index">
+                <img [src]="movieItem.image" [alt]="movieItem.name" width="100">
+                <p><strong>Nombre </strong>{{movieItem.name}}</p>
+                <p><strong>Plan</strong> {{item.plan[i].name}}</p>
+            </div>
+        </div>
+        <br>
     </div>
+    
 </div>
 
 

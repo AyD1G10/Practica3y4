@@ -13,7 +13,11 @@ export class HistorialAdminComponent implements OnInit {
   constructor(public auth: UserService,public router: Router) { }
 
   ngOnInit(): void {
-    this.getHistorialAdmin();
+    let user = JSON.parse(localStorage.getItem('UsuarioLogueado')||'{}');
+    user = user.type;
+    //if(user == 0) {
+      this.getHistorialAdmin();
+    //}
   }
 
   cerrarSesion() {
