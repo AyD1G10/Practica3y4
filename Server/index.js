@@ -142,7 +142,14 @@ app.get('/test', function (request, response) {
 
 });
 
+app.post('/getTasa', async (request, response) => {
+  //actualizar bd
+  await consumirApi.getExchangeRate();
 
+  let json_response = await obtenerCatalogo.getTasadeCambio();
+  //console.log(json_response);
+  response.json(json_response);
+})
 
 app.post('/catalogo', async (request, response) => {
     let json_response = await obtenerCatalogo.getCatalogo();

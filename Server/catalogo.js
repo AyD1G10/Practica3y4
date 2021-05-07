@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Catalogo = require('./models/Catalogo');
 const Language = require('./models/Language');
 const Availability = require('./models/Availability');
+const exchangeRate = require('./models/ExchangeRate');
 
 const getCatalogo = async function () {
     const busqueda = await Catalogo.find();
@@ -97,6 +98,12 @@ const getPlanes = async function (arreglo) {
     return(json_response);
 }
 
+const getTasadeCambio = async function () {
+    const tasadeCambio = await exchangeRate.find();
+    //console.log(tasadeCambio[0]);
+    return (tasadeCambio[0]);
+}
+
 //getPlanes([1,2,3]);
 
-module.exports = { getCatalogo , getCatalogoAdmin , getPlanes }
+module.exports = { getCatalogo , getCatalogoAdmin , getPlanes , getTasadeCambio }
