@@ -31,4 +31,16 @@ export class HistorialAdminComponent implements OnInit {
     });
   }
 
+  catalogo(){
+    this.router.navigate(['/Catalogo']);
+  }
+
+  historial(){
+    this.router.navigate(['/historial']);
+  }
+
+  alquilar(){
+    this.router.navigate(['/pagoalquiler']);
+    
+  }
 }

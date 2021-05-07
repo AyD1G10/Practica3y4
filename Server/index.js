@@ -51,16 +51,28 @@ app.post('/Login', function (request, response) {
 app.post('/transaccion', async (request, response) => {
   console.log(request.body); 
 
-  const transa = new Transacciones({
+  let tar = request.body['tarjeta'];
+  let encript = "";
+  for(let i = 0 ; i < tar.length ; i++){
+    if(i < 4){
+      encript = encript + "#";
+    }else if(i > tar.length-5){
+      encript = encript + "#";
+    }else{ 
+      encript = encript + tar[i];
+    }
+  }
+ 
+ const transa = new Transacciones({
     _id: new mongoose.Types.ObjectId(),
     user: request.body['user'],
     key: request.body['key'], 
     movieid : request.body['movieid'],
     plan : request.body['plan'], 
-    exchangeRate :  7,
+    exchangeRate :  request.body['exchangeRate'],
     total : request.body['total'],
-    date : new Date()
-
+    date : new Date(),
+    tarjeta : encript
   })
   transa.save()
   .then(result => {
@@ -150,6 +162,8 @@ app.post('/getTasa', async (request, response) => {
   //console.log(json_response);
   response.json(json_response);
 })
+
+
 
 app.post('/catalogo', async (request, response) => {
     let json_response = await obtenerCatalogo.getCatalogo();
