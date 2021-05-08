@@ -175,5 +175,6 @@ describe('Enmacarado de numero', function () {
         let encrypted = cipher.update(text);
         encrypted = Buffer.concat([encrypted, cipher.final()]);
         assert.notEqual(encrypted.toString('hex'), 'este es un numero de prueba');
+        mongoose.disconnect();
     });
 });
